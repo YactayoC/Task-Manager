@@ -42,6 +42,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { validateForm } from '@/utils';
 import { useTodo, useModal } from '@/composables';
 import { AddTask, CategoryTask } from '@/models/task';
 
@@ -68,25 +69,21 @@ const resetForm = () => {
 };
 
 const onAddTask = (dataForm: AddTask) => {
-  //   if (!dataForm.level) {
-  //     isFormErrorSelect.value = true;
-  //     setTimeout(() => {
-  //       isFormErrorSelect.value = false;
-  //     }, 2000);
-  //   }
+  const { inputHasError, selectHasError, isFormValid } = validateForm(dataForm);
 
-  //   if (!dataForm.task) {
-  //     isFormErrorInput.value = true;
-  //     setTimeout(() => {
-  //       isFormErrorInput.value = false;
-  //     }, 2000);
+  isFormErrorInput.value = inputHasError.value;
+  isFormErrorSelect.value = selectHasError.value;
 
-  //     return;
-  //   }
+  setTimeout(() => {
+    isFormErrorInput.value = false;
+    isFormErrorSelect.value = false;
+  }, 2000);
 
-  addTask(dataForm);
-  setCloseModal();
-  resetForm();
+  if (isFormValid) {
+    addTask(dataForm);
+    setCloseModal();
+    resetForm();
+  }
 };
 
 const onUpdateTask = (dataForm: AddTask) => {
