@@ -11,10 +11,11 @@
     "core-js": "^3.8.3",
     "uuid": "^9.0.0",
     "vue": "^3.2.13",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",

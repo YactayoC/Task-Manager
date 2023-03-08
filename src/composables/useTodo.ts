@@ -1,8 +1,9 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { v4 as uuidv4 } from 'uuid';
 
 import { StateInterface } from '@/store';
-import { CategoryTask } from '@/models/task';
+import { AddTask, CategoryTask, Task } from '@/models/task';
 
 const useTodos = () => {
   const store = useStore<StateInterface>();
@@ -21,8 +22,39 @@ const useTodos = () => {
     }
   };
 
+  const addTask = (task: AddTask) => {
+    const newTask: Task = { ...task, id: uuidv4() };
+    store.commit('tasks/addTaskByCategory', newTask);
+  };
+
+  const updateMovedTask = (moved: any, newCategory: CategoryTask) => {
+    const dataTaskMoved = {
+      moved: moved,
+      newCategory: newCategory,
+    };
+
+    store.commit('tasks/updateMovedTask', dataTaskMoved);
+  };
+
+  const updateCategoryTask = (task: Task, newCategory: CategoryTask) => {
+    const dataTask = {
+      task: task,
+      newCategory: newCategory,
+    };
+
+    store.commit('tasks/updateCategoryTask', dataTask);
+  };
+
+  const removeTask = (task: Task) => {
+    store.commit('tasks/removeTaskByCategory', task);
+  };
+
   return {
     getTasksTodoByCategory,
+    addTask,
+    updateMovedTask,
+    updateCategoryTask,
+    removeTask,
   };
 };
 

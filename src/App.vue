@@ -9,51 +9,40 @@
       <i v-else class="fa-regular fa-lightbulb" @click="setDarkMode"></i>
     </div>
 
-    <!-- <TodoList /> -->
-    <!-- <Modal v-if="isOpenModal" title="New Task" textButton="Agregar" @closeModal="closeModal" /> -->
+    <TodoList />
+    <Modal v-if="isOpenModal === true" title="New Task" textButton="Add Task" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue';
+<script setup lang="ts">
+import { onMounted, ref, watch } from 'vue';
 
-// import { TodoList, Modal } from './components';
-import useModal from './composables/useModal';
+import Modal from './components/Modal.vue';
+import TodoList from './components/TodoList.vue';
+import { useModal } from './composables';
 
-export default defineComponent({
-  // components: { TodoList, Modal },
+const { isOpenModal } = useModal();
+const isDarkModeActive = ref<boolean>();
 
-  setup() {
-    const { isOpenModal, setOpenModal } = useModal();
-    const isDarkModeActive = ref<boolean>();
-
-    onMounted(() => {
-      const darkMode = localStorage.getItem('darkMode');
-      if (darkMode) {
-        isDarkModeActive.value = JSON.parse(darkMode);
-      }
-    });
-
-    watch(isDarkModeActive, (value) => {
-      if (value) {
-        document.body.classList.add('todo-darkmode');
-      } else {
-        document.body.classList.remove('todo-darkmode');
-      }
-    });
-
-    return {
-      isOpenModal,
-      isDarkModeActive,
-
-      setOpenModal,
-      setDarkMode: () => {
-        isDarkModeActive.value = !isDarkModeActive.value;
-        localStorage.setItem('darkMode', JSON.stringify(isDarkModeActive.value));
-      },
-    };
-  },
+onMounted(() => {
+  const darkMode = localStorage.getItem('darkMode');
+  if (darkMode) {
+    isDarkModeActive.value = JSON.parse(darkMode);
+  }
 });
+
+watch(isDarkModeActive, (value) => {
+  if (value) {
+    document.body.classList.add('todo-darkmode');
+  } else {
+    document.body.classList.remove('todo-darkmode');
+  }
+});
+
+const setDarkMode = () => {
+  isDarkModeActive.value = !isDarkModeActive.value;
+  localStorage.setItem('darkMode', JSON.stringify(isDarkModeActive.value));
+};
 </script>
 
 <style>
@@ -114,7 +103,8 @@ export default defineComponent({
   color: #fff;
 }
 
-.todo-darkmode .modal-form input {
+.todo-darkmode .modal-form input,
+.todo-darkmode .modal-form textarea {
   color: #fff;
 }
 
