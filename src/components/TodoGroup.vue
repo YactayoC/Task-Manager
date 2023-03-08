@@ -1,30 +1,28 @@
 <template>
-  <div class="todos-sections">
-    <div class="todo-section">
-      <div class="todo-header">
-        <div class="todo-header-text">
-          <h2>{{ props.category }}</h2>
-          <span :class="evaluateCategoryTask(props.category)">{{ listTasks?.length }}</span>
-        </div>
-        <i class="fa-solid fa-plus" @click="setOpenModal(props.category)"></i>
+  <div class="todo-section">
+    <div class="todo-header">
+      <div class="todo-header-text">
+        <h2>{{ props.category }}</h2>
+        <span :class="evaluateCategoryTask(props.category)">{{ listTasks?.length }}</span>
       </div>
-
-      <draggable class="todo-list" v-model="listTasks" group="people" item-key="id" @change="onDraggableChange">
-        <template #item="{ element }">
-          <div class="todo-element">
-            <div class="todo-element-header">
-              <span :class="evaluateRelevanceTask(element.relevance)">{{ element.relevance }}</span>
-              <div class="todo-element-header-icons">
-                <i class="fa-solid fa-pen-to-square" @click="onUpdateTask(element)"></i>
-                <i class="fa-solid fa-trash" @click="removeTask(element)"></i>
-              </div>
-            </div>
-            {{ element.title }}
-          </div>
-        </template>
-      </draggable>
-      <p class="clear-tasks" @click="clearAllTasksByCategory(props.category)">Clear tasks</p>
+      <i class="fa-solid fa-plus" @click="setOpenModal(props.category)"></i>
     </div>
+
+    <draggable class="todo-list" v-model="listTasks" group="people" item-key="id" @change="onDraggableChange">
+      <template #item="{ element }">
+        <div class="todo-element">
+          <div class="todo-element-header">
+            <span :class="evaluateRelevanceTask(element.relevance)">{{ element.relevance }}</span>
+            <div class="todo-element-header-icons">
+              <i class="fa-solid fa-pen-to-square" @click="onUpdateTask(element)"></i>
+              <i class="fa-solid fa-trash" @click="removeTask(element)"></i>
+            </div>
+          </div>
+          {{ element.title }}
+        </div>
+      </template>
+    </draggable>
+    <p class="clear-tasks" @click="clearAllTasksByCategory(props.category)">Clear tasks</p>
   </div>
 </template>
 
@@ -80,7 +78,7 @@ const onUpdateTask = (task: Task) => {
   position: relative;
 }
 
-.todo-header {
+.todo-section .todo-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -137,6 +135,25 @@ const onUpdateTask = (task: Task) => {
   height: 100%;
   overflow-y: auto;
   max-height: 42rem;
+  padding-right: 0.5rem;
+}
+
+.todo-list::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.todo-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .todo-element {
@@ -224,7 +241,7 @@ const onUpdateTask = (task: Task) => {
   position: absolute;
   bottom: -2rem;
   right: 1rem;
-  color: #fff;
+  color: #000;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.3s ease-in-out;

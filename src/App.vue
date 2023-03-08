@@ -108,6 +108,14 @@ const setDarkMode = () => {
   color: #fff;
 }
 
+.todo-darkmode .clear-tasks {
+  color: #fff;
+}
+
+.todo-darkmode .clear-tasks:hover {
+  color: #696969;
+}
+
 /* Ligth Mode */
 .todo {
   display: flex;
