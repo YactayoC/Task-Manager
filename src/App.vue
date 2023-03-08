@@ -10,7 +10,7 @@
     </div>
 
     <TodoList />
-    <Modal v-if="isOpenModal === true" title="New Task" textButton="Add Task" />
+    <Modal v-if="isOpenModal === true" />
   </div>
 </template>
 

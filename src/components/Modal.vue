@@ -2,7 +2,7 @@
   <div class="modal" @click.self="setCloseModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h1>{{ props.title }}</h1>
+        <h1>{{ textsModal.title }}</h1>
         <i
           class="fa-solid fa-xmark"
           @click="
@@ -11,7 +11,7 @@
           "
         ></i>
       </div>
-      <form class="modal-form" @submit.prevent="onAddTask(dataForm)">
+      <form class="modal-form" @submit.prevent="!taskActive ? onAddTask(dataForm) : onUpdateTask(dataForm)">
         <div class="form-group">
           <select v-model="dataForm.relevance" :class="isFormErrorSelect && 'form-error'">
             <option value="" disabled selected>Select level of importance</option>
@@ -33,34 +33,28 @@
         <div class="form-group">
           <textarea v-model="dataForm.description" placeholder="Enter description"></textarea>
         </div>
-        <button type="submit">{{ props.textButton }}</button>
+        <button type="submit">{{ textsModal.textButton }}</button>
       </form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 
 import { useTodo, useModal } from '@/composables';
 import { AddTask, CategoryTask } from '@/models/task';
 
-interface Props {
-  title: 'New Task' | 'Edit Task';
-  textButton: 'Add Task' | 'Update Task';
-}
-
-const props = defineProps<Props>();
-
-const { addTask } = useTodo();
-const { categoryInModal, setCloseModal } = useModal();
+const { getTaskActive, addTask, updateDataTask } = useTodo();
+const { categoryInModal, textsModal, setCloseModal } = useModal();
 const isFormErrorSelect = ref(false);
 const isFormErrorInput = ref(false);
 
+const taskActive = getTaskActive();
 const dataForm = ref<AddTask>({
-  title: '',
-  description: '',
-  relevance: '',
+  title: taskActive.value?.title || '',
+  description: taskActive.value?.description || '',
+  relevance: taskActive.value?.relevance || '',
   category: categoryInModal.value,
 });
 
@@ -91,6 +85,12 @@ const onAddTask = (dataForm: AddTask) => {
   //   }
 
   addTask(dataForm);
+  setCloseModal();
+  resetForm();
+};
+
+const onUpdateTask = (dataForm: AddTask) => {
+  updateDataTask(taskActive.value, dataForm);
   setCloseModal();
   resetForm();
 };

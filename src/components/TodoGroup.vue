@@ -15,7 +15,7 @@
             <div class="todo-element-header">
               <span :class="evaluateRelevanceTask(element.relevance)">{{ element.relevance }}</span>
               <div class="todo-element-header-icons">
-                <i class="fa-solid fa-pen-to-square"></i>
+                <i class="fa-solid fa-pen-to-square" @click="onUpdateTask(element)"></i>
                 <i class="fa-solid fa-trash" @click="removeTask(element)"></i>
               </div>
             </div>
@@ -32,7 +32,7 @@
 import { defineProps } from 'vue';
 import draggable from 'vuedraggable';
 
-import { CategoryTask } from '@/models/task';
+import { CategoryTask, Task } from '@/models/task';
 import { useTodo, useModal } from '@/composables';
 import { evaluateCategoryTask, evaluateRelevanceTask } from '@/utils/evaluatePropsTask';
 
@@ -41,8 +41,15 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const { getTasksTodoByCategory, updateMovedTask, updateCategoryTask, removeTask, clearAllTasksByCategory } = useTodo();
 const { setOpenModal } = useModal();
+const {
+  setTaskActive,
+  getTasksTodoByCategory,
+  updateMovedTask,
+  updateCategoryTask,
+  removeTask,
+  clearAllTasksByCategory,
+} = useTodo();
 
 const listTasks = getTasksTodoByCategory(props.category);
 
@@ -54,6 +61,11 @@ const onDraggableChange = (payload: any) => {
   if (payload?.moved?.element) {
     updateMovedTask(payload?.moved, props.category);
   }
+};
+
+const onUpdateTask = (task: Task) => {
+  setOpenModal(props.category, true);
+  setTaskActive(task);
 };
 </script>
 
@@ -191,18 +203,21 @@ const onDraggableChange = (payload: any) => {
   color: #690eff;
   background-color: #f9feff;
   border: 1px solid #690eff;
+  text-transform: capitalize;
 }
 
 .text-medium {
   color: #58a19f;
   background-color: #f4fefa;
   border: 1px solid #58a19f;
+  text-transform: capitalize;
 }
 
 .text-low {
   color: #a3895c;
   background-color: #fff9ec;
   border: 1px solid #a3895c;
+  text-transform: capitalize;
 }
 
 .clear-tasks {

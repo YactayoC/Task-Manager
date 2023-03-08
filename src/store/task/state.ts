@@ -5,6 +5,7 @@ export interface TasksState {
   tasksTodo: Task[];
   tasksInProgress: Task[];
   tasksDone: Task[];
+  taskSelected: Task | null;
 }
 
 function state(): TasksState {
@@ -12,6 +13,7 @@ function state(): TasksState {
     tasksTodo: getDataFromLocalStorage(CategoryTask.Todo),
     tasksInProgress: getDataFromLocalStorage(CategoryTask.InProgress),
     tasksDone: getDataFromLocalStorage(CategoryTask.Done),
+    taskSelected: null,
   };
 }
 

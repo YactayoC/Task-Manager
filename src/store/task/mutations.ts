@@ -4,6 +4,14 @@ import { CategoryTask, Task } from '@/models/task';
 import { TasksState } from './state';
 
 const mutations: MutationTree<TasksState> = {
+  getTaskActive(state: TasksState, task: Task) {
+    state.taskSelected = task;
+  },
+
+  clearTaskActive(state: TasksState) {
+    state.taskSelected = null;
+  },
+
   addTaskByCategory(state: TasksState, task: Task) {
     const { category } = task;
 
@@ -18,6 +26,43 @@ const mutations: MutationTree<TasksState> = {
         break;
       case CategoryTask.Done:
         state.tasksDone.push(task);
+        localStorage.setItem(CategoryTask.Done, JSON.stringify(state.tasksDone));
+        break;
+    }
+  },
+
+  updateDataTask(state: TasksState, dataTask: { task: Task; newData: Task }) {
+    const { task, newData } = dataTask;
+
+    switch (task.category) {
+      case CategoryTask.Todo:
+        state.tasksTodo = state.tasksTodo.map((item) => {
+          if (item.id === task.id) {
+            item = { ...item, ...newData };
+          }
+
+          return item;
+        });
+        localStorage.setItem(CategoryTask.Todo, JSON.stringify(state.tasksTodo));
+        break;
+      case CategoryTask.InProgress:
+        state.tasksInProgress = state.tasksInProgress.map((item) => {
+          if (item.id === task.id) {
+            item = { ...item, ...newData };
+          }
+
+          return item;
+        });
+        localStorage.setItem(CategoryTask.InProgress, JSON.stringify(state.tasksInProgress));
+        break;
+      case CategoryTask.Done:
+        state.tasksDone = state.tasksDone.map((item) => {
+          if (item.id === task.id) {
+            item = { ...item, ...newData };
+          }
+
+          return item;
+        });
         localStorage.setItem(CategoryTask.Done, JSON.stringify(state.tasksDone));
         break;
     }

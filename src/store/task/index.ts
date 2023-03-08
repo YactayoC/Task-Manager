@@ -7,7 +7,6 @@ import mutations from './mutations';
 
 const tasksModule: Module<TasksState, StateInterface> = {
   namespaced: true,
-
   getters,
   mutations,
   state,

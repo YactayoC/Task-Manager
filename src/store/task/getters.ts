@@ -18,6 +18,10 @@ const getters: GetterTree<TasksState, StateInterface> = {
       return state.tasksDone;
     }
   },
+
+  getTask: (state) => {
+    return state.taskSelected;
+  },
 };
 
 export default getters;

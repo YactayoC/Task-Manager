@@ -8,6 +8,14 @@ import { AddTask, CategoryTask, Task } from '@/models/task';
 const useTodos = () => {
   const store = useStore<StateInterface>();
 
+  const setTaskActive = (task: Task) => {
+    store.commit('tasks/getTaskActive', task);
+  };
+
+  const getTaskActive = () => {
+    return computed<Task>(() => store.getters['tasks/getTask']);
+  };
+
   const getTasksTodoByCategory = (category: CategoryTask) => {
     if (category === CategoryTask.Todo) {
       return computed(() => store.state.tasks.tasksTodo);
@@ -25,6 +33,15 @@ const useTodos = () => {
   const addTask = (task: AddTask) => {
     const newTask: Task = { ...task, id: uuidv4() };
     store.commit('tasks/addTaskByCategory', newTask);
+  };
+
+  const updateDataTask = (task: Task, newData: AddTask) => {
+    const dataTask = {
+      task: task,
+      newData: newData,
+    };
+
+    store.commit('tasks/updateDataTask', dataTask);
   };
 
   const updateMovedTask = (moved: any, newCategory: CategoryTask) => {
@@ -54,8 +71,11 @@ const useTodos = () => {
   };
 
   return {
+    setTaskActive,
+    getTaskActive,
     getTasksTodoByCategory,
     addTask,
+    updateDataTask,
     updateMovedTask,
     updateCategoryTask,
     removeTask,
