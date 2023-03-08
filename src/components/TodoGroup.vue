@@ -23,7 +23,7 @@
           </div>
         </template>
       </draggable>
-      <p class="clear-tasks">Clear tasks</p>
+      <p class="clear-tasks" @click="clearAllTasksByCategory(props.category)">Clear tasks</p>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const { getTasksTodoByCategory, updateMovedTask, updateCategoryTask, removeTask } = useTodo();
+const { getTasksTodoByCategory, updateMovedTask, updateCategoryTask, removeTask, clearAllTasksByCategory } = useTodo();
 const { setOpenModal } = useModal();
 
 const listTasks = getTasksTodoByCategory(props.category);

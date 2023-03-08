@@ -49,12 +49,17 @@ const useTodos = () => {
     store.commit('tasks/removeTaskByCategory', task);
   };
 
+  const clearAllTasksByCategory = (category: CategoryTask) => {
+    store.commit('tasks/clearAllTasksByCategory', category);
+  };
+
   return {
     getTasksTodoByCategory,
     addTask,
     updateMovedTask,
     updateCategoryTask,
     removeTask,
+    clearAllTasksByCategory,
   };
 };
 
