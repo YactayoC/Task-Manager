@@ -180,6 +180,7 @@ const onUpdateTask = (dataForm: AddTask) => {
   outline: none;
   background: transparent;
   resize: none;
+  height: 10rem;
 }
 
 .modal-form button {

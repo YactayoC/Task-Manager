@@ -1,24 +1,37 @@
-# task-manager
+# TaskManager
 
-## Project setup
-```
-yarn install
-```
+_Task Manager is a basic project made in vue in which we can manage our tasks and their relevance. This project works with vuex through the localstorage._
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Starter 🚀
 
-### Compiles and minifies for production
-```
-yarn build
-```
+_See the result ._
 
-### Lints and fixes files
+## Or you can clone the project
+
+### Pre-requisites 📋
+
+_Do you need have installed_
+
 ```
-yarn lint
+☕ NodeJS
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+📦 npm | yarn | pnpm
+```
+
+After cloning the project you need to run the next commands
+
+```
+  1️⃣ => yarn
+  2️⃣ => yarn serve
+```
+
+## Preview 📷
+
+![Screenshot_1](https://user-images.githubusercontent.com/89726167/168442135-503223ac-b655-47d3-8142-505cd0d01ed3.png)
+![Screenshot_2](https://user-images.githubusercontent.com/89726167/168442147-483db26c-749a-48cc-8aed-1c6081f4df36.png)
+![Screenshot_3](https://user-images.githubusercontent.com/89726167/168442148-96b5b7dc-f290-4dd9-b581-ef8fa938bef0.png)
+![Screenshot_4](https://user-images.githubusercontent.com/89726167/168442149-e340b5c9-06fc-498a-b125-f2dd46c440f1.png)
+![Screenshot_5](https://user-images.githubusercontent.com/89726167/168442157-0fd34adb-b691-4dd6-8ab7-1200dbc8ee20.png)
+![Screenshot_6](https://user-images.githubusercontent.com/89726167/168442159-e977633e-94e7-44bc-875e-944bd996d09a.png)
