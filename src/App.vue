@@ -3,7 +3,7 @@
     <div class="todo-bar">
       <div class="title-header">
         <i class="fa-regular fa-bookmark"></i>
-        <h1>TodoList</h1>
+        <h1>TaskManager</h1>
       </div>
       <i v-if="!isDarkModeActive" class="fa-solid fa-lightbulb" @click="setDarkMode"></i>
       <i v-else class="fa-regular fa-lightbulb" @click="setDarkMode"></i>
