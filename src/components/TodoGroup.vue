@@ -136,6 +136,7 @@ const onUpdateTask = (task: Task) => {
   overflow-y: auto;
   max-height: 42rem;
   padding-right: 0.5rem;
+  padding-block: 0.5rem;
 }
 
 .todo-list::-webkit-scrollbar {

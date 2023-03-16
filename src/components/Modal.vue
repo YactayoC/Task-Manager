@@ -112,7 +112,7 @@ const onUpdateTask = (dataForm: AddTask) => {
   row-gap: 1rem;
   background-color: white;
   border-radius: 10px;
-  padding-block: 1rem;
+  padding-block: 2rem;
   padding-inline: 4rem;
   width: 40rem;
 }
